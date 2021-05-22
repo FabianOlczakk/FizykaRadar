@@ -37,7 +37,7 @@ void loop() {
   }
   
 void spin() {
-  for (pos = 0; pos <= 180; pos += degPerLoop) {
+  for (pos = 0; pos <= 172; pos += degPerLoop) {
     modes();
     myservo.write(pos);
     dist(pos);         
@@ -47,7 +47,7 @@ void spin() {
     delay(1);
   }             
   }
-  for (pos = 180; pos >= 0; pos -= degPerLoop) {
+  for (pos = 172; pos >= 0; pos -= degPerLoop) {
     modes();
     myservo.write(pos);
     dist(pos);
@@ -125,17 +125,13 @@ void dist(int pos) {
 void target(int pos, long distance) {
   //if (distance > 2 && distance < 99) {
     rgb(distance);
-    //Serial.print("{\"distance\": ");
-    //Serial.print(distance);
-    //Serial.print(",");
-    //Serial.print("\"angle\": ");
-    //Serial.print(pos);
-    //Serial.print("}");
-    //Serial.println();
-
-    Serial.print(pos);
-    Serial.print(",");
+    Serial.print("{\"distance\": ");
     Serial.print(distance);
+    Serial.print(",");
+    Serial.print("\"angle\": ");
+    Serial.print(pos);
+    Serial.print("}");
+    Serial.println();
   //}
   }
   
