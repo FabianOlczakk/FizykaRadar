@@ -97,10 +97,15 @@ ScreenManager:
                 background_color: 1, 1, 1, 1
                 size_hint: 1, 0.2
                 orientation: "horizontal"
+                padding: 20
 
                 MDLabel:
                     line: line
-                    text: "Kąt nachylenia: " + str(self.line.current_angle)
+                    text: "Kąt nachylenia: " + str(self.line.current_angle + 90)
+                    font_style: "H5"
+                    halign: "center"
+                    theme_text_color: "Custom"
+                    text_color: 1, 1, 1, 1
 
                 MDLabel
                     text: "Jasia"
