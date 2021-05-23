@@ -37,13 +37,13 @@ void loop() {
   }
   
 void spin() {
-  for (pos = 0; pos <= 172; pos += degPerLoop) {
+  for (pos = 0; pos <= 180; pos += degPerLoop) {
     modes();
     myservo.write(pos);
     dist(pos);         
     delay(modeDelay);       
   }
-  for (pos = 172; pos >= 0; pos -= degPerLoop) {
+  for (pos = 180; pos >= 0; pos -= degPerLoop) {
     modes();
     myservo.write(pos);
     dist(pos);
@@ -118,7 +118,7 @@ void dist(int pos) {
 
 void target(int pos, long distance) {
   
-  if (distance > 99) {
+  if (distance > 200) {
     distance = 0;
   }
     rgb(distance);

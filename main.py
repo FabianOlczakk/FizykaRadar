@@ -46,7 +46,7 @@ class RotatingLineWidget(Widget):
         super().__init__(**kwargs)
 
         try:
-            self.myradar = Radar('COM3')
+            self.myradar = Radar('/dev/tty.usbmodem14202')
 
         except Exception:
             pass
