@@ -17,6 +17,16 @@
             width: 2
             circle: [0, 0, 300, -90 , 90]
 
+<BorderCircleHuge@Widget>:
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 1
+        Translate:
+            xy: self.pos[0], self.pos[1]
+        Line:
+            width: 2
+            circle: [0, 0, 400, -90 , 90]
+
 <BottomLine@Widget>:
     canvas:
         Color:
@@ -25,7 +35,7 @@
             xy: self.pos[0], self.pos[1]
         Line:
             width: 2
-            points: 300, 0, -300, 0
+            points: 400, 0, -400, 0
 
 <BorderCircleMedium@Widget>:
     canvas:
@@ -83,8 +93,10 @@ ScreenManager:
 
             line: line
 
-            BorderCircle:
+            BorderCircleHuge:
                 pos: root.size[0]/2, root.size[1]/2
+
+            BorderCircle:
 
             BorderCircleMedium:
 
@@ -95,5 +107,5 @@ ScreenManager:
             RotatingLineWidget:
                 main_float: main_float
                 id: line
-                length: 300
+                length: 400
                 angle: 0

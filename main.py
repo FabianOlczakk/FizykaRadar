@@ -85,7 +85,7 @@ class RotatingLineWidget(Widget):
         dot_angle = dot_angle['angle']
         dot_distance = dot_distance['distance']
 
-        dot_distance = dot_distance * 4
+        dot_distance = dot_distance * 2.9
 
         # print(dot_angle)
 
