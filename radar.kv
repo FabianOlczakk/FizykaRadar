@@ -1,3 +1,4 @@
+
 <RadarDot>:
     canvas:
         Color:
@@ -86,26 +87,45 @@ ScreenManager:
             size: self.size
 
     Screen:
-        size_hint: 1, 1
         id: main_float
 
-        FloatLayout:
+        BoxLayout:
+            size_hint: 1, 1
+            orientation: "vertical"
 
-            line: line
+            BoxLayout:
+                background_color: 1, 1, 1, 1
+                size_hint: 1, 0.2
+                orientation: "horizontal"
 
-            BorderCircleHuge:
-                pos: root.size[0]/2, root.size[1]/2
+                MDLabel:
+                    line: line
+                    text: "Kąt nachylenia: " + str(self.line.current_angle)
 
-            BorderCircle:
+                MDLabel
+                    text: "Jasia"
 
-            BorderCircleMedium:
+            FloatLayout:
+                size_hint: 1, 0.8
 
-            BorderCircleSmall:
+                line: line
 
-            BottomLine:
+                BorderCircleHuge:
+                    pos_hint: {"center_x": 1, "center_y": 0.7}
 
-            RotatingLineWidget:
-                main_float: main_float
-                id: line
-                length: 400
-                angle: 0
+                BorderCircle:
+
+                BorderCircleMedium:
+
+                BorderCircleSmall:
+
+                BottomLine:
+
+                RotatingLineWidget:
+                    main_float: main_float
+                    id: line
+                    length: 400
+                    angle: 0
+
+
+

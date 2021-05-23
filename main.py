@@ -3,11 +3,16 @@ from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ObjectProperty
 from kivy.uix.button import Button
 from kivy.animation import Animation
+from kivymd.uix.label import MDLabel
 from kivymd.uix.textfield import MDTextField
 from kivy.clock import Clock
 from api import Radar
 import random
 import math
+
+
+class AngleLabel(MDLabel):
+    pass
 
 
 class RadarDot(Widget):
@@ -85,7 +90,7 @@ class RotatingLineWidget(Widget):
         dot_angle = dot_angle['angle']
         dot_distance = dot_distance['distance']
 
-        dot_distance = dot_distance * 2.9
+        dot_distance = dot_distance * 2
 
         # print(dot_angle)
 
