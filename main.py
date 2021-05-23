@@ -1,13 +1,12 @@
 from kivymd.app import MDApp
 from kivy.uix.widget import Widget
-from kivy.properties import NumericProperty, ListProperty
+from kivy.properties import NumericProperty, ListProperty, StringProperty
 from kivy.uix.button import Button
 from kivy.animation import Animation
 from kivymd.uix.label import MDLabel
 from kivymd.uix.textfield import MDTextField
 from kivy.clock import Clock
 from api import Radar
-import random
 import math
 
 
@@ -44,6 +43,7 @@ class RotatingLineWidget(Widget):
     # Tworzę niezbęde zmienne
     length = NumericProperty(10.0)
     angle = NumericProperty()
+    distance_in_cm = StringProperty()
     current_angle = NumericProperty()
     current_distance = NumericProperty()
 
@@ -87,6 +87,8 @@ class RotatingLineWidget(Widget):
         dot_distance = self.myradar.get_data()
         dot_angle = self.myradar.get_data()
 
+        distance_in_cm = dot_distance
+
         dot_angle = dot_angle['angle']
         dot_distance = dot_distance['distance']
 
@@ -98,6 +100,7 @@ class RotatingLineWidget(Widget):
             x = dot_distance * math.cos(math.radians(dot_angle))
             # print(x)
             y = dot_distance * math.sin(math.radians(dot_angle))
+
             # print(y)
 
             # print(str(x), str(y))
