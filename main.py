@@ -51,7 +51,9 @@ class RotatingLineWidget(Widget):
         super().__init__(**kwargs)
 
         try:
-            self.myradar = Radar('COM3')
+            self.myradar = Radar('/dev/tty.usbmodem14102')
+            # /dev/tty.usbmodem14102
+            # COM3
 
         except Exception:
             pass
@@ -94,13 +96,19 @@ class RotatingLineWidget(Widget):
 
         dot_distance = dot_distance * 2
 
+        actual_distance = dot_distance * 2
+
         # print(dot_angle)
 
         if dot_distance != 0:
-            x = dot_distance * math.cos(math.radians(dot_angle))
+            x = actual_distance * math.cos(math.radians(dot_angle))
             # print(x)
+<<<<<<< HEAD
             y = dot_distance * math.sin(math.radians(dot_angle))
 
+=======
+            y = actual_distance * math.sin(math.radians(dot_angle))
+>>>>>>> f13a6509be73a4d8a6901471ca8ba7df21369a32
             # print(y)
 
             # print(str(x), str(y))
