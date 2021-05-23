@@ -5,34 +5,20 @@ from kivy.uix.button import Button
 from kivy.animation import Animation
 from kivymd.uix.textfield import MDTextField
 from kivy.clock import Clock
-import pygame
+from api import Radar
+import random
 import math
 
 
 class RadarDot(Widget):
-    def on_line(self, x1, y1, x2, y2):
-        Q = pygame.math.Vector2(self.x, self.y)
-        r = self.width
-        P1 = pygame.math.Vector2(x1, y1)
-        V = pygame.math.Vector2(x2, y2) - P1
+    random_color = [random.random(), random.random(), random.random(), 1]
 
-        a = V.dot(V)
-        b = 2 * V.dot(P1 - Q)
-        c = P1.dot(P1) + Q.dot(Q) - 2 * P1.dot(Q) - r**2
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Clock.schedule_once(self.auto_destruct, 4)
 
-        disc = b**2 - 4 * a * c
-        if disc < 0:
-            return False, None
-
-        sqrt_disc = math.sqrt(disc)
-        t1 = (-b + sqrt_disc) / (2 * a)
-        t2 = (-b - sqrt_disc) / (2 * a)
-
-        if not (0 <= t1 <= 1 or 0 <= t2 <= 1):
-            return False, None
-
-        t = max(0, min(1, - b / (2 * a)))
-        return True, P1 + t * V
+    def auto_destruct(self, *args):
+        self.parent.remove_widget(self)
 
 
 class RotateButton(Button):
@@ -54,15 +40,78 @@ class RotatingLineWidget(Widget):
     length = NumericProperty(10.0)
     angle = NumericProperty()
     current_angle = NumericProperty()
+    current_distance = NumericProperty()
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        try:
+            self.myradar = Radar('COM3')
+
+        except Exception:
+            pass
+
+        Clock.schedule_interval(self.start_radar_update, 0)
+
+    def start_radar_update(self, *args):
+
+        try:
+            data = self.myradar.get_data()
+
+            # print(data)
+
+            angle = data['angle']
+            distance = int(data['distance'])
+
+            angle = int(angle)
+
+            angle = angle - 90
+
+            self.current_angle = angle
+            self.current_distance = distance
+
+        except Exception:
+            self.current_angle = 34
 
     def animate(self, *largs):
         """Funkcja animacji wskazówki radaru"""
-        a = Animation(angle=self.current_angle, t='in_out_sine', duration=0.5)
+        a = Animation(angle=self.current_angle, t='in_out_sine', duration=0)
         a.start(self)
+
+    def add_dot(self):
+        dot_distance = self.myradar.get_data()
+        dot_angle = self.myradar.get_data()
+
+        dot_angle = dot_angle['angle']
+        dot_distance = dot_distance['distance']
+
+        dot_distance = dot_distance * 4
+
+        # print(dot_angle)
+
+        if dot_distance != 0:
+            x = dot_distance * math.cos(math.radians(dot_angle))
+            print(x)
+            y = dot_distance * math.sin(math.radians(dot_angle))
+            print(y)
+
+            # print(str(x), str(y))
+            self.main_float.add_widget(RadarDot(pos=(x, y)))
+
+        # print(dot_angle)
+
+    def angle_change(self, *args):
+        self.animate()
+
+    def distance_change(self, *args):
+        self.add_dot()
+
+    def on_current_distance(self, *args):
+        Clock.schedule_once(self.distance_change, 0)
 
     def on_current_angle(self, *args):
         """Funkcja wykonywana po zmianie kątu wskazówki"""
-        Clock.schedule_once(self.animate, 0)
+        Clock.schedule_once(self.angle_change, 0)
 
 
 class RadarApp(MDApp):

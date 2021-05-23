@@ -1,22 +1,18 @@
 <RadarDot>:
     canvas:
         Color:
-            rgba: 0, 1, 0, 1
-
-        Translate:
-            xy: self.pos[0], self.pos[1]
-
+            rgba: self.random_color
         Ellipse:
+            pos: self.pos
             size: 20, 20
+
 
 <BorderCircle@Widget>:
     canvas:
         Color:
             rgba: 1, 1, 1, 1
-
         Translate:
             xy: self.pos[0], self.pos[1]
-
         Line:
             width: 2
             circle: [0, 0, 300, -90 , 90]
@@ -25,7 +21,8 @@
     canvas:
         Color:
             rgba: 1, 1, 1, 1
-
+        Translate:
+            xy: self.pos[0], self.pos[1]
         Line:
             width: 2
             points: 300, 0, -300, 0
@@ -34,10 +31,8 @@
     canvas:
         Color:
             rgba: 1, 1, 1, 1
-
         Translate:
             xy: self.pos[0], self.pos[1]
-
         Line:
             width: 2
             circle: [0, 0, 200, -90 , 90]
@@ -46,10 +41,8 @@
     canvas:
         Color:
             rgba: 1, 1, 1, 1
-
         Translate:
             xy: self.pos[0], self.pos[1]
-
         Line:
             width: 2
             circle: [0, 0, 100, -90 , 90]
@@ -61,13 +54,13 @@
 <RotatingLineWidget>:
     canvas:
         PushMatrix
-        Translate:
-            xy: self.pos[0], self.pos[1]
         Rotate:
             angle: self.angle
             axis: 0,0,1
         Color:
             rgba: 0.2, 1, 0.3, 1
+        Translate:
+            xy: self.pos[0], self.pos[1]
         Line:
             points: 0, 0, 0, self.length * 1
             width: 2
@@ -83,46 +76,24 @@ ScreenManager:
             size: self.size
 
     Screen:
-        size_hint_y: 1
-        line: line
-
-        BoxLayout:
-            size_hint: 1, 0.1
-
-            RotationInput:
-                id: input
-                size: 200, 150
-                hint_text: "Test rotacji"
-                line: line
-
-            RotateButton:
-                line: line
-                input: input
-                on_press: self.callback()
-                text: "enter"
-                size: 50, 50
+        size_hint: 1, 1
+        id: main_float
 
         FloatLayout:
-            size_hint:1, 0.9
 
-
+            line: line
 
             BorderCircle:
-                pos_hint: {"x": 0.5, "y": 0.5}
+                pos: root.size[0]/2, root.size[1]/2
 
             BorderCircleMedium:
-                pos_hint: {"x": 0, "y": 0}
 
             BorderCircleSmall:
-                pos_hint: {"x": 0, "y": 0}
 
             BottomLine:
 
             RotatingLineWidget:
+                main_float: main_float
                 id: line
                 length: 300
                 angle: 0
-                pos_hint: {"x": 0, "y": 0}
-
-            RadarDot:
-                pos: 200, 200
