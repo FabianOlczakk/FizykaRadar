@@ -20,9 +20,9 @@ long duration;
 int distance;
 
 int degPerLoop = 1;
-boolean modeDelay = LOW;
+int modeDelay = LOW;
 boolean loopBreak = LOW;
-
+  
 void setup() {
   pinMode(button, INPUT);
   pinMode(red_light_pin, OUTPUT);
@@ -41,21 +41,13 @@ void spin() {
     modes();
     myservo.write(pos);
     dist(pos);         
-    if (modeDelay == HIGH) {
-    delay(180);
-  } else {
-    delay(1);
-  }             
+    delay(modeDelay);       
   }
   for (pos = 172; pos >= 0; pos -= degPerLoop) {
     modes();
     myservo.write(pos);
     dist(pos);
-    if (modeDelay == HIGH) {
-    delay(180);
-  } else {
-    delay(1);
-  }
+    delay(modeDelay);
   }
 }
 
@@ -66,41 +58,43 @@ void modes() {
     // has the button switch been closed?
     if ( newSwitchState == HIGH )
     {
-      if (mode == 1) {
-        degPerLoop = 5;
-        modeDelay = LOW;
-        mode = 2;
-      }
-      else if (mode == 2) {
-        degPerLoop = 10;
-        modeDelay = HIGH;
-        mode = 3;
-      }
-      else if (mode == 3) {
-        degPerLoop = 20;
-        modeDelay = HIGH;
-        mode = 4;
-      }
-      else if (mode == 4) {
-        degPerLoop = 20;
-        modeDelay = LOW;
-        mode = 5;
-      }
-      else if (mode == 5) {
-        degPerLoop = 0;
-        modeDelay = LOW;
-        pos = 90;
-        mode = 6;
-      }
-      else if (mode == 6) {
-        degPerLoop = 1;
-        modeDelay = LOW;
+      mode++;
+      if (mode > 6) {
         mode = 0;
       }
-      else {
-        degPerLoop = 3;
-        modeDelay = LOW;
-        mode = 1;
+      
+      switch(mode) {
+        case 0:
+          degPerLoop = 1;
+          modeDelay = 1;
+          break;
+          
+        case 1:
+          degPerLoop = 0;
+          modeDelay = 1;
+          pos = 90;
+          break;
+
+        case 2:
+          degPerLoop = 10;
+          modeDelay = 1;
+          break;
+          
+        case 3:
+          degPerLoop = 10;
+          modeDelay = 120;
+          break;
+
+        case 4:
+          degPerLoop = 30;
+          modeDelay = 1;
+          break;
+
+        case 5:
+          degPerLoop = 30;
+          modeDelay = 120;
+          break
+          ;        
       }
     }
     oldSwitchState = newSwitchState;
@@ -123,7 +117,10 @@ void dist(int pos) {
 }
 
 void target(int pos, long distance) {
-  //if (distance > 2 && distance < 99) {
+  
+  if (distance > 99) {
+    distance = 0;
+  }
     rgb(distance);
     Serial.print("{\"distance\": ");
     Serial.print(distance);
@@ -132,7 +129,6 @@ void target(int pos, long distance) {
     Serial.print(pos);
     Serial.print("}");
     Serial.println();
-  //}
   }
   
 long microsecondsToCentimeters(long microseconds) {
@@ -140,6 +136,9 @@ long microsecondsToCentimeters(long microseconds) {
 }
 
 void rgb(int dis) {
+  if (dis == 0) {
+    dis = 999;
+  }
   if (dis <= 33) {
     digitalWrite(red_light_pin, HIGH);
     digitalWrite(green_light_pin, LOW);
