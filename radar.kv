@@ -1,4 +1,3 @@
-
 <RadarDot>:
     canvas:
         Color:
@@ -102,6 +101,14 @@ ScreenManager:
                 MDLabel:
                     line: line
                     text: "Kąt nachylenia: " + str(self.line.current_angle + 90)
+                    font_style: "H5"
+                    halign: "center"
+                    theme_text_color: "Custom"
+                    text_color: 1, 1, 1, 1
+
+                MDLabel
+                    line: line
+                    text: "Odlęgłość od ostatniego obiektu: " + str(self.line.distance_in_cm) + "cm"
                     font_style: "H5"
                     halign: "center"
                     theme_text_color: "Custom"
