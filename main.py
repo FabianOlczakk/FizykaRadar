@@ -4,6 +4,7 @@ from kivy.properties import NumericProperty, ListProperty, StringProperty
 from kivy.uix.button import Button
 from kivy.animation import Animation
 from kivymd.uix.label import MDLabel
+from kivy.uix.image import Image
 from kivymd.uix.textfield import MDTextField
 from kivy.clock import Clock
 from api import Radar
@@ -51,7 +52,7 @@ class RotatingLineWidget(Widget):
         super().__init__(**kwargs)
 
         try:
-            self.myradar = Radar('/dev/tty.usbmodem14102')
+            self.myradar = Radar('# COM3')
             # /dev/tty.usbmodem14102
             # COM3
 
@@ -103,12 +104,7 @@ class RotatingLineWidget(Widget):
         if dot_distance != 0:
             x = actual_distance * math.cos(math.radians(dot_angle))
             # print(x)
-<<<<<<< HEAD
-            y = dot_distance * math.sin(math.radians(dot_angle))
-
-=======
             y = actual_distance * math.sin(math.radians(dot_angle))
->>>>>>> f13a6509be73a4d8a6901471ca8ba7df21369a32
             # print(y)
 
             # print(str(x), str(y))

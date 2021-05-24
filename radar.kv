@@ -1,3 +1,5 @@
+#: import ew kivy.uix.effectwidget
+
 <RadarDot>:
     canvas:
         Color:
@@ -10,7 +12,7 @@
 <BorderCircle@Widget>:
     canvas:
         Color:
-            rgba: 1, 1, 1, 1
+            rgba: 0, 0.32, 0, 1
         Translate:
             xy: self.pos[0], self.pos[1]
         Line:
@@ -20,7 +22,7 @@
 <BorderCircleHuge@Widget>:
     canvas:
         Color:
-            rgba: 1, 1, 1, 1
+            rgba: 0, 0.32, 0, 1
         Translate:
             xy: self.pos[0], self.pos[1]
         Line:
@@ -30,7 +32,7 @@
 <BottomLine@Widget>:
     canvas:
         Color:
-            rgba: 1, 1, 1, 1
+            rgba: 0, 0.32, 0, 1
         Translate:
             xy: self.pos[0], self.pos[1]
         Line:
@@ -40,7 +42,7 @@
 <BorderCircleMedium@Widget>:
     canvas:
         Color:
-            rgba: 1, 1, 1, 1
+            rgba: 0, 0.32, 0, 1
         Translate:
             xy: self.pos[0], self.pos[1]
         Line:
@@ -50,7 +52,7 @@
 <BorderCircleSmall@Widget>:
     canvas:
         Color:
-            rgba: 1, 1, 1, 1
+            rgba: 0, 0.32, 0, 1
         Translate:
             xy: self.pos[0], self.pos[1]
         Line:
@@ -78,12 +80,10 @@
 
 ScreenManager:
     canvas.before:
-        Color:
-            rgba: 0, 0, 0, .8
-
         Rectangle:
             pos: self.pos
             size: self.size
+            source: "Images/texture.jpg"
 
     Screen:
         id: main_float
@@ -94,7 +94,7 @@ ScreenManager:
 
             BoxLayout:
                 background_color: 1, 1, 1, 1
-                size_hint: 1, 0.2
+                size_hint: 1, 0.1
                 orientation: "horizontal"
                 padding: 20
 
@@ -115,26 +115,25 @@ ScreenManager:
                     text_color: 1, 1, 1, 1
 
             FloatLayout:
-                size_hint: 1, 0.8
+                size_hint: 1, 0.9
 
                 line: line
 
-                BorderCircleHuge:
-                    pos_hint: {"center_x": 1, "center_y": 0.7}
+                EffectWidget:
 
-                BorderCircle:
+                    BorderCircleHuge:
+                        pos_hint: {"center_x": 1, "center_y": 0.7}
 
-                BorderCircleMedium:
+                    BorderCircle:
 
-                BorderCircleSmall:
+                    BorderCircleMedium:
 
-                BottomLine:
+                    BorderCircleSmall:
 
-                RotatingLineWidget:
-                    main_float: main_float
-                    id: line
-                    length: 800
-                    angle: 0
+                    BottomLine:
 
-
-
+                    RotatingLineWidget:
+                        main_float: main_float
+                        id: line
+                        length: 800
+                        angle: 0
