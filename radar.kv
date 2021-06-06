@@ -98,7 +98,7 @@ ScreenManager:
 
                 MDLabel:
                     line: line
-                    text: "Kąt nachylenia: " + str(self.line.current_angle + 90)
+                    text: "α: " + str(self.line.current_angle + 90) + "°"
                     font_style: "H5"
                     halign: "center"
                     theme_text_color: "Custom"
@@ -106,7 +106,7 @@ ScreenManager:
 
                 MDLabel
                     line: line
-                    text: "Odlęgłość od ostatniego obiektu: " + str(self.line.distance_in_cm) + "cm"
+                    text: "d: " + str(self.line.distance_in_cm) + " cm"
                     font_style: "H5"
                     halign: "center"
                     theme_text_color: "Custom"
