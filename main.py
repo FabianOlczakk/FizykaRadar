@@ -90,7 +90,7 @@ class RotatingLineWidget(Widget):
         dot_distance = self.myradar.get_data()
         dot_angle = self.myradar.get_data()
 
-        distance_in_cm = dot_distance
+        self.distance_in_cm = str(dot_distance)
 
         dot_angle = dot_angle['angle']
         dot_distance = dot_distance['distance']

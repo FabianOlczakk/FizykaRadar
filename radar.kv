@@ -1,5 +1,3 @@
-#: import ew kivy.uix.effectwidget
-
 <RadarDot>:
     canvas:
         Color:
@@ -120,21 +118,19 @@ ScreenManager:
 
                 line: line
 
-                EffectWidget:
+                BorderCircleHuge:
+                    pos_hint: {"center_x": 1, "center_y": 0.7}
 
-                    BorderCircleHuge:
-                        pos_hint: {"center_x": 1, "center_y": 0.7}
+                BorderCircle:
 
-                    BorderCircle:
+                BorderCircleMedium:
 
-                    BorderCircleMedium:
+                BorderCircleSmall:
 
-                    BorderCircleSmall:
+                BottomLine:
 
-                    BottomLine:
-
-                    RotatingLineWidget:
-                        main_float: main_float
-                        id: line
-                        length: 800
-                        angle: 0
+                RotatingLineWidget:
+                    main_float: main_float
+                    id: line
+                    length: 800
+                    angle: 0
