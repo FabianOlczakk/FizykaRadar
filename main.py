@@ -53,7 +53,7 @@ class RotatingLineWidget(Widget):
 
         try:
             self.myradar = Radar('COM3')
-            #self.myradar = Radar('/dev/tty.usbmodem14102')
+            #self.myradar = Radar('COM3')
 
         except Exception:
             pass
