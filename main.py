@@ -94,6 +94,7 @@ class RotatingLineWidget(Widget):
         dot_angle = dot_angle['angle']
         dot_distance = dot_distance['distance']
 
+
         dot_distance = dot_distance * 2
 
         actual_distance = dot_distance * 2
