@@ -1,3 +1,5 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
 <RadarDot>:
     canvas:
         Color:
@@ -76,61 +78,95 @@
             width: 2
         PopMatrix
 
-ScreenManager:
-    canvas.before:
-        Rectangle:
-            pos: self.pos
-            size: self.size
-            source: "Images/texture.jpg"
+Screen:
+    ScreenManager:
+        id: head_manager
+        transition: FadeTransition()
 
-    Screen:
-
-        BoxLayout:
-            size_hint: 1, 1
-            orientation: "vertical"
+        Screen:
+            name: "credits_screen"
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "Images/texture.jpg"
 
             BoxLayout:
-                background_color: 1, 1, 1, 1
-                size_hint: 1, 0.1
-                orientation: "horizontal"
-                padding: 20
+                size_hint: 1, 1
+                orientation: "vertical"
 
                 MDLabel:
-                    line: line
-                    text: "α: " + str(self.line.current_angle + 90) + "°"
-                    font_style: "H5"
+                    size_hint: 1, 0.9
+                    font_style: "H4"
+                    text: "Stworzone przez \n \n [b]Fabiana Olczaka[/b] i [b]Jakuba Gawrońskiego[/b]"
                     halign: "center"
-                    theme_text_color: "Custom"
-                    text_color: 1, 1, 1, 1
+                    color: [1, 1, 1, 0.8]
+                    markup: True
 
-                MDLabel
-                    line: line
-                    text: "d: " + str(self.line.distance_in_cm) + " cm"
-                    font_style: "H5"
+                MDLabel:
+                    size_hint: 1, 0.1
+                    font_style: "H4"
+                    text: "[sub]Wersja 1.0 | 10.06.2021 | Gorzów Wielkopolski[/sub]"
                     halign: "center"
-                    theme_text_color: "Custom"
-                    text_color: 1, 1, 1, 1
+                    color: [1, 1, 1, 0.8]
+                    markup: True
+                    pos_hint: {"center_x": 0.5, "y": 1}
+
+        Screen:
+            name: "radar_screen"
+
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "Images/texture.jpg"
+
+            BoxLayout:
+                size_hint: 1, 1
+                orientation: "vertical"
+
+                BoxLayout:
+                    background_color: 1, 1, 1, 1
+                    size_hint: 1, 0.1
+                    orientation: "horizontal"
+                    padding: 20
+
+                    MDLabel:
+                        line: line
+                        text: "α: " + str(self.line.current_angle + 90) + "°"
+                        font_style: "H5"
+                        halign: "center"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+
+                    MDLabel
+                        line: line
+                        text: "d: " + str(self.line.distance_in_cm) + " cm"
+                        font_style: "H5"
+                        halign: "center"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
 
 
-            FloatLayout:
-                size_hint: 1, 0.9
+                FloatLayout:
+                    size_hint: 1, 0.9
 
-                id: main_float
-                line: line
+                    id: main_float
+                    line: line
 
-                BorderCircleHuge:
-                    pos_hint: {"center_x": 1, "center_y": 0.7}
+                    BorderCircleHuge:
+                        pos_hint: {"center_x": 1, "center_y": 0.7}
 
-                BorderCircle:
+                    BorderCircle:
 
-                BorderCircleMedium:
+                    BorderCircleMedium:
 
-                BorderCircleSmall:
+                    BorderCircleSmall:
 
-                BottomLine:
+                    BottomLine:
 
-                RotatingLineWidget:
-                    main_float: main_float
-                    id: line
-                    length: 800
-                    angle: 0
+                    RotatingLineWidget:
+                        main_float: main_float
+                        id: line
+                        length: 800
+                        angle: 0

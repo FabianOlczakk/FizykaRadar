@@ -1,3 +1,5 @@
+from kivy.config import Config
+from kivy.core.window import Window
 from kivymd.app import MDApp
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ListProperty, StringProperty
@@ -9,6 +11,9 @@ from kivymd.uix.textfield import MDTextField
 from kivy.clock import Clock
 from api import Radar
 import math
+
+Config.set('kivy', 'exit_on_escape', '0')
+Window.size = (1400, 900)
 
 
 class AngleLabel(MDLabel):
@@ -51,12 +56,27 @@ class RotatingLineWidget(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        try:
-            self.myradar = Radar('COM3')
-            #self.myradar = Radar('COM3')
+        radar_port_number = int(1)
 
-        except Exception:
-            pass
+        while True:
+            radar_port = "COM" + str(radar_port_number)
+
+            try:
+
+                if radar_port_number > 10:
+                    break
+
+                else:
+
+                    self.myradar = Radar(radar_port)
+
+                    print("Dobry port " + radar_port)
+                    break
+                # self.myradar = Radar('COM3')
+
+            except Exception:
+                print("Zły port " + radar_port)
+                radar_port_number += 1
 
         Clock.schedule_interval(self.start_radar_update, 0)
 
@@ -93,7 +113,6 @@ class RotatingLineWidget(Widget):
 
         dot_angle = dot_angle['angle']
         dot_distance = dot_distance['distance']
-
 
         dot_distance = dot_distance * 2
 
@@ -146,8 +165,11 @@ class RadarApp(MDApp):
         # Tworzę niezbędne połączenia między obiektami
         self.line = self.root.ids.line
 
+    def switch_screens(self, *args):
+        self.root.ids.head_manager.current = "radar_screen"
+
     def on_start(self):
-        pass
+        Clock.schedule_once(self.switch_screens, 3)
 
 
 if __name__ == '__main__':
