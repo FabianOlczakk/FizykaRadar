@@ -2,14 +2,14 @@
 
 Servo myservo;
 
-const int pingPin = 2;
-const int echoPin = 3;
+const int pingPin = 5;
+const int echoPin = 7;
 
-const int red_light_pin= 11;
-const int green_light_pin = 10;
-const int yellow_light_pin = 9;
+const int red_light_pin= 4;
+const int green_light_pin = 2;
+const int yellow_light_pin = 3;
 
-const int button = 8;
+const int button = 10;
 int mode = 0;
 int oldMode = 0;
 boolean oldSwitchState = LOW;
@@ -28,8 +28,11 @@ void setup() {
   pinMode(red_light_pin, OUTPUT);
   pinMode(green_light_pin, OUTPUT);
   pinMode(yellow_light_pin, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(6, OUTPUT);
+  digitalWrite(12, HIGH);
   Serial.begin(9600);
-  myservo.attach(13);
+  myservo.attach(9);
 }
 
 void loop() {
